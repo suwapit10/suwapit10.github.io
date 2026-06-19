@@ -1,59 +1,248 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="เว็บไซต์แสดงผลงานและทักษะของ Suwapit">
-    <title>ความภาคภูมิใจของ SUWAPIT</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="เว็บไซต์แสดงผลงานและทักษะของ Suwapit">
+  <title>SUWAPIT — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:   #ffffff;
+      --off:     #f7f7f7;
+      --border:  #e8e8e8;
+      --text:    #1a1a1a;
+      --muted:   #888;
+      --accent:  #111;
+      --tag-bg:  #f0f0f0;
+      --radius:  12px;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      background: var(--off);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 56px;
+    }
+    nav .logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a {
+      text-decoration: none; font-size: 0.85rem; color: var(--muted);
+      transition: color .2s;
+    }
+    nav ul a:hover { color: var(--accent); }
+
+    /* ─── HERO ─── */
+    .hero {
+      max-width: 860px; margin: 0 auto;
+      padding: 5rem 2rem 3rem;
+      display: flex; align-items: center; gap: 3.5rem;
+    }
+    .hero-photo {
+      flex-shrink: 0;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    /* placeholder when no real photo */
+    .hero-photo-placeholder {
+      flex-shrink: 0;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      border: 3px solid var(--border);
+    }
+    .hero-text .eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem; letter-spacing: 0.12em;
+      color: var(--muted); text-transform: uppercase; margin-bottom: 0.5rem;
+    }
+    .hero-text h1 {
+      font-size: 2rem; font-weight: 600; line-height: 1.2;
+      letter-spacing: -0.02em; margin-bottom: 0.8rem;
+    }
+    .hero-text p {
+      font-size: 0.95rem; color: #555; line-height: 1.7; max-width: 480px;
+    }
+
+    /* ─── SECTIONS ─── */
+    main { max-width: 860px; margin: 0 auto; padding: 0 2rem 6rem; }
+
+    section { margin-bottom: 3rem; }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.14em;
+      color: var(--muted); text-transform: uppercase;
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ─── CARDS ─── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+    .card h3 {
+      font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem;
+    }
+    .card p {
+      font-size: 0.9rem; color: #555; line-height: 1.7;
+    }
+    .card .tags {
+      display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.9rem;
+    }
+    .tag {
+      background: var(--tag-bg);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem; color: #444;
+      padding: 0.2rem 0.6rem; border-radius: 4px;
+    }
+
+    /* ─── SKILLS GRID ─── */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.8rem;
+    }
+    .skill-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      display: flex; align-items: center; gap: 0.7rem;
+      font-size: 0.88rem; font-weight: 500;
+    }
+    .skill-icon { font-size: 1.2rem; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--white);
+      padding: 2rem;
+      text-align: center;
+    }
+    footer p { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.3rem; }
+    footer a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .hero { flex-direction: column; align-items: flex-start; gap: 1.5rem; padding-top: 3rem; }
+      .hero-text h1 { font-size: 1.6rem; }
+      nav ul { gap: 1rem; }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- ส่วนหัวของเว็บ -->
-    <header>
-        <h1>สวัสดี! ผมคือ SUWAPIT</h1>
-        <p>นี่คือผลงานและความภาคภูมิใจของผม</p>
-    </header>
+  <!-- NAV -->
+  <nav>
+    <span class="logo">SUWAPIT.DEV</span>
+    <ul>
+      <li><a href="#about">เกี่ยวกับ</a></li>
+      <li><a href="#projects">ผลงาน</a></li>
+      <li><a href="#skills">ทักษะ</a></li>
+      <li><a href="#contact">ติดต่อ</a></li>
+    </ul>
+  </nav>
 
-    <!-- ส่วนเกี่ยวกับตัวเอง -->
-    <section id="about">
-        <h2>เกี่ยวกับผม</h2>
-        <p>ผมชื่อ นายสุวพิชญ์ พิลึก กำลังศึกษาอยู่ชั้นมัธยมศึกษาปีที่ 6 ทุกครั้งที่เขียนโปรแกรมแล้วมันทำงานได้จริง รู้สึกสนุกและอยากเรียนรู้เพิ่มขึ้นเรื่อยๆ ตอนนี้กำลังพัฒนาทักษะด้านเว็บและตั้งใจจะเรียนต่อด้านคอมพิวเตอร์</p>
-    </section>
+  <!-- HERO -->
+  <div class="hero">
+    <!--
+      วางไฟล์รูปของคุณในโฟลเดอร์เดียวกัน แล้วเปลี่ยน src เป็นชื่อไฟล์จริง
+      เช่น src="profile.jpg"
+    -->
+    <img
+      class="hero-photo"
+      src="profile.jpg"
+      alt="รูปโปรไฟล์ Suwapit"
+      onerror="this.style.display='none'; document.getElementById('pp').style.display='flex';"
+    >
+    <div class="hero-photo-placeholder" id="pp" style="display:none;">👤</div>
 
-    <!-- ส่วนแสดงผลงาน -->
+    <div class="hero-text">
+      <p class="eyebrow">นักเรียน · นักพัฒนาเว็บ</p>
+      <h1>นายสุวพิชญ์ พิลึก</h1>
+      <p>กำลังศึกษาอยู่ชั้นมัธยมศึกษาปีที่ 6 ทุกครั้งที่เขียนโปรแกรมแล้วมันทำงานได้จริง รู้สึกสนุกและอยากเรียนรู้เพิ่มขึ้นเรื่อยๆ กำลังพัฒนาทักษะด้านเว็บและตั้งใจจะเรียนต่อด้านคอมพิวเตอร์</p>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- PROJECTS -->
     <section id="projects">
-        <h2>ผลงานของผม</h2>
+      <p class="section-label">ผลงาน</p>
 
-        <div class="project">
-            <h3>เว็บไซต์ Portfolio</h3>
-            <p>เว็บไซต์นี้สร้างด้วย HTML, CSS และ JavaScript เพื่อแสดงผลงานและทักษะของผม ออกแบบให้ใช้งานง่ายและดูสวยงาม</p>
+      <div class="card">
+        <h3>เว็บไซต์ Portfolio</h3>
+        <p>เว็บไซต์ส่วนตัวที่สร้างขึ้นเองตั้งแต่ต้น ออกแบบให้ใช้งานง่ายและรองรับทุกขนาดหน้าจอ (Responsive Design)</p>
+        <div class="tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
         </div>
+      </div>
 
-        <div class="project">
+      <div class="card">
+        <h3>แอปพลิเคชันจัดการงาน</h3>
+        <p>แอปจัดการงานประจำวัน รองรับการเพิ่ม ลบ และติ๊กถูกงานที่ทำเสร็จแล้ว ใช้ JavaScript จัดการข้อมูลแบบ Real-time</p>
+        <div class="tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
         </div>
+      </div>
     </section>
 
-    <!-- ส่วนแสดงทักษะ -->
+    <!-- SKILLS -->
     <section id="skills">
-        <h2>ทักษะของผม</h2>
-        <ul>
-            <li>HTML, CSS, JavaScript</li>
-            <li>Git และ GitHub</li>
-        </ul>
+      <p class="section-label">ทักษะ</p>
+      <div class="skills-grid">
+        <div class="skill-item"><span class="skill-icon">🌐</span> HTML &amp; CSS</div>
+        <div class="skill-item"><span class="skill-icon">⚡</span> JavaScript</div>
+        <div class="skill-item"><span class="skill-icon">🐙</span> Git &amp; GitHub</div>
+        <div class="skill-item"><span class="skill-icon">🎮</span> เล่นเกมเก่ง</div>
+      </div>
     </section>
 
-    <!-- ส่วนติดต่อและลิขสิทธิ์ -->
-    <footer>
-        <p>
-            ติดต่อผมได้ที่:
-            <a href="mailto:suwphichysuwphichyi@example.com">suwphichysuwphichy@gmail.com</a>
-        </p>
-        <p>&copy; <span id="year"></span> SUWAPIT. All rights reserved.</p>
-    </footer>
+  </main>
 
-    <!-- ลิงก์ไปยัง JavaScript -->
-    <script src="script.js"></script>
+  <!-- FOOTER -->
+  <footer id="contact">
+    <p>ติดต่อผมได้ที่ <a href="mailto:suwphichysuwphichy@gmail.com">suwphichysuwphichy@gmail.com</a></p>
+    <p style="margin-top:1rem;">&copy; <span id="year"></span> SUWAPIT. All rights reserved.</p>
+  </footer>
 
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
